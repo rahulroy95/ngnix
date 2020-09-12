@@ -1,0 +1,14 @@
+-
+        name: play1
+        hosts: test-server
+        become: yes
+        vars:
+                - server_port: 8088
+        tasks:
+                - name: Install Nginx web server
+                  apt: pkg=nginx state=present update_cache=true
+                  notify:
+                          - start nginx
+        handlers:
+                 - name: restart nginx
+                   service: name=nginx state=restarted
